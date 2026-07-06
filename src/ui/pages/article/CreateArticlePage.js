@@ -32,11 +32,13 @@ export class CreateArticlePage {
   }
 
   async fillTagsField(tagsArray) {
-    for (const tag of tagsArray) {
-      await test.step(`Add tag: "${tag}"`, async () => {
-        await this.tagsField.fill(tag);
-        await this.page.keyboard.press('Enter');
-      });
+    if (Array.isArray(tagsArray) && tagsArray.length) {
+      for (const tag of tagsArray) {
+        await test.step(`Add tag: "${tag}"`, async () => {
+          await this.tagsField.fill(tag);
+          await this.page.keyboard.press('Enter');
+        });
+      }
     }
   }
 

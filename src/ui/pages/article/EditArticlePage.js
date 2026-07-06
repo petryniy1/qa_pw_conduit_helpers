@@ -5,7 +5,7 @@ export class EditArticlePage {
     this.page = page;
     this.titleField = page.getByPlaceholder('Article Title');
     this.descriptionField = page.getByPlaceholder("What's this article about?");
-    this.textField = page.getByPlaceholder('Write your article (in');
+    this.textField = page.getByPlaceholder('Write your article (in markdown)');
     this.tagsField = page.getByPlaceholder('Enter tags');
     this.updateArticleButton = page.getByRole('button', {
       name: 'Update Article',
@@ -38,6 +38,8 @@ export class EditArticlePage {
   }
 
   async updateTagsField(tagsArray) {
+    if (!Array.isArray(tagsArray) || !tagsArray.length) return;
+
     for (const tag of tagsArray) {
       await test.step(`Update tag: "${tag}"`, async () => {
         await this.tagsField.fill(tag);
@@ -47,6 +49,8 @@ export class EditArticlePage {
   }
 
   async deleteTags(tagsArray) {
+    if (!Array.isArray(tagsArray) || !tagsArray.length) return;
+
     for (const tag of tagsArray) {
       await test.step(`Delete tag: "${tag}"`, async () => {
         await this.page
